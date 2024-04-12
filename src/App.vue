@@ -1,30 +1,55 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+    <a 
+      v-for="url in urls" 
+      :key="url.id" 
+      class="bg-white shadow-md rounded-lg p-4 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
+      :href="url.url"
+      target="_blank"
+    >
+      <img v-if="url.img" :src="url.img" alt="logo" class="" />
+      <h2 v-else class="text-xl font-bold text-center">{{ url.name }}</h2>
+  </a>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
+<script setup lang="ts">
+import { ref } from 'vue';
+
+interface URL {
+  id: number;
+  name: string;
+  url: string;
+  shortUrl: string;
+  img: string;
+}
+
+const urls = ref<URL[]>([
+  {
+    id: 1,
+    name: 'Google',
+    url: 'https://www.google.com',
+    shortUrl: 'https://bit.ly/3y3z3z3',
+    img: './src/assets/google_logo.png',
+  },
+  {
+    id: 2,
+    name: 'Facebook',
+    url: 'https://www.facebook.com',
+    shortUrl: 'https://bit.ly/3y3z3z3',
+    img: '',
+  },
+  {
+    id: 3,
+    name: 'Twitter',
+    url: 'https://www.twitter.com',
+    shortUrl: 'https://bit.ly/3y3z3z3',
+    img: '',
+  },
+]);
+
+</script>
+
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+
 </style>
